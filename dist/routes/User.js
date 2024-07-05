@@ -4,13 +4,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const UserValidation_1 = __importDefault(require("../middleware/UserValidation"));
 const userRouter = express_1.default.Router();
-userRouter.get('/', (req, res) => {
-    res.send('Received GET request to /user');
-});
 userRouter.post('/', (req, res) => {
-    const data = req.body;
-    console.log('Received POST data:', data);
-    res.send('Received POST request to /user');
+    try {
+        const data = req.body;
+        console.log("data", data);
+        const result = UserValidation_1.default.safeParse(data);
+        if (result.success) {
+            res.status(200).send({ Message: "Success!" });
+        }
+        else {
+            res.status(400).send({ message: "Invalid parameters" });
+        }
+    }
+    catch (error) {
+        res.send(error);
+    }
 });
 exports.default = userRouter;

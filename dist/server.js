@@ -11,9 +11,6 @@ app.use('/user', User_1.default);
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
-// app.get('/todo', (req: Request, res: Response) => {
-//     res.send('Hello, World todo!');
-// });
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || 'localhost';
 app.listen(port, () => {
